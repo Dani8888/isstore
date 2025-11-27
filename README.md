@@ -34,19 +34,19 @@ A modern, responsive e-commerce application built with Vue.js 3, featuring admin
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Dani8888/isstore.git
-   cd isstore```
+   cd isstore
 
 2. **Install dependencies**
    ```bash
-   npm install```
+   npm install
 
 3. **Run development server**
    ```bash
-   npm run serve```
+   npm run serve
 
 2. **Build for production**
    ```bash
-   npm run build```
+   npm run build
    
 ## 👥 Author
 - **GitHub: @Dani8888**
