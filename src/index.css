@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default template variables */
+:root {
+  /* Colors */
+  --color-primary: #3B82F6;
+  --color-secondary: #1E40AF;
+  --color-accent: #6366F1;
+  --color-background: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-text: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-border: #E5E7EB;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+  
+  /* Styles */
+  --border-radius: 0.75rem;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Global template styles */
+.template-transition * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Base element styles using CSS variables */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Component classes using CSS variables */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-secondary);
+}
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  color: var(--color-text);
+}
+
+.navbar {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+/* Text styles */
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+/* Border styles */
+.border-custom {
+  border-color: var(--color-border);
+}
+
+/* Success, Error, Warning states */
+.text-success {
+  color: var(--color-success);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.bg-error {
+  background-color: var(--color-error);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
+}
+
+/* Navigation link styles */
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-link.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.nav-link:not(.active) {
+  color: var(--color-text);
+}
+
+.nav-link:not(.active):hover {
+  color: white;
+  background-color: var(--color-primary);
+}
+
+/* Ensure text contrast for all templates */
+.welcome-text {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.username-text {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Force text visibility in dark templates */
+.dark .welcome-text,
+[data-theme="dark"] .welcome-text {
+  color: #F9FAFB !important;
+}
+
+.dark .username-text,
+[data-theme="dark"] .username-text {
+  color: #60A5FA !important;
+}
+
+/* High contrast for cyber theme */
+.cyber .welcome-text,
+[data-theme="cyber"] .welcome-text {
+  color: #FFFFFF !important;
+  text-shadow: 0 0 10px var(--color-primary);
+}
+
+.cyber .username-text,
+[data-theme="cyber"] .username-text {
+  color: #00D4FF !important;
+  text-shadow: 0 0 10px #00D4FF;
+}
+
+/* High contrast for luxury theme */
+.luxury .welcome-text,
+[data-theme="luxury"] .welcome-text {
+  color: #FEF3C7 !important;
+}
+
+.luxury .username-text,
+[data-theme="luxury"] .username-text {
+  color: #F59E0B !important;
+}
