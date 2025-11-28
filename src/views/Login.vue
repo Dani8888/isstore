@@ -218,7 +218,7 @@
 
         <!-- Right Side - Login Form -->
         <div 
-          class="rounded-3xl shadow-2xl border p-8 lg:p-10 backdrop-blur-xl mt-8 xs:mb-12"
+          class="rounded-3xl shadow-2xl border p-8 lg:p-10 backdrop-blur-xl xs:mb-12"
           :style="{
             backgroundColor: 'var(--color-surface)',
             borderColor: 'var(--color-primary)',
