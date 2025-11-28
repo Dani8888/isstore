@@ -183,36 +183,37 @@
           </div>
 
           <!-- Features List -->
-          <div class="space-y-4 hidden lg:block">
-            <div 
-              v-for="feature in features" 
-              :key="feature.id" 
-              class="flex items-center space-x-4 p-4 rounded-2xl backdrop-blur-sm border transition duration-300 hover:scale-105"
-              :style="{
-                backgroundColor: 'var(--color-surface)',
-                borderColor: 'var(--color-border)',
-                boxShadow: 'var(--shadow)'
-              }"
-            >
-              <div 
-                class="w-10 h-10 rounded-xl flex items-center justify-center"
-                :style="{
-                  backgroundColor: 'var(--color-primary)',
-                  boxShadow: 'var(--shadow)'
-                }"
-              >
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span 
-                class="text-lg font-medium"
-                :style="{ color: 'var(--color-text)' }"
-              >
-                {{ feature.text }}
-              </span>
-            </div>
-          </div>
+			<div class="space-y-4 hidden lg:block">
+			  <div 
+				v-for="feature in features" 
+				:key="feature.id" 
+				class="flex items-center space-x-4 p-4 rounded-2xl backdrop-blur-sm border transition duration-300 hover:scale-105"
+				:style="{
+				  backgroundColor: 'var(--color-surface)',
+				  borderColor: 'var(--color-border)',
+				  boxShadow: 'var(--shadow)'
+				}"
+			  >
+				<div 
+				  class="w-10 h-10 rounded-xl flex items-center justify-center"
+				  :style="{
+					backgroundColor: 'var(--color-primary)',
+					boxShadow: 'var(--shadow)'
+				  }"
+				>
+				  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+				  </svg>
+				</div>
+				<span 
+				  class="text-lg font-medium"
+				  :style="{ color: 'var(--color-text)' }"
+				>
+				  {{ $t(`auth.features.${feature.key}`) }}
+				</span>
+			  </div>
+			</div>
+		  
         </div>
 
         <!-- Right Side - Login Form -->
@@ -534,11 +535,11 @@ export default {
 
     // Features list for the left side
     const features = [
-      { id: 1, text: 'Premium Product Collection' },
-      { id: 2, text: 'Secure & Fast Checkout' },
-      { id: 3, text: '24/7 Customer Support' },
-      { id: 4, text: 'Exclusive Member Benefits' }
-    ]
+	  { id: 1, key: 'premiumCollection' },
+	  { id: 2, key: 'secureCheckout' },
+	  { id: 3, key: 'customerSupport' },
+	  { id: 4, key: 'memberBenefits' }
+	]
 
     // Function to generate gradient colors based on template
     const getGradientColors = () => {

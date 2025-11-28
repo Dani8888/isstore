@@ -67,7 +67,13 @@
     "secureLogin": "Kredensial Anda dienkripsi dengan aman",
     "copyright": "© 2025 Istana Store. Semua hak dilindungi.",
     "copiedToClipboard": "Tersalin ke clipboard!",
-    "failedToCopy": "Gagal menyalin teks"
+    "failedToCopy": "Gagal menyalin teks",
+    "features": {
+      "premiumCollection": "Koleksi Produk Premium",
+      "secureCheckout": "Checkout Aman & Cepat",
+      "customerSupport": "Dukungan Pelanggan 24/7",
+      "memberBenefits": "Manfaat Eksklusif Member"
+    }
   },
   "nav": {
     "products": "Produk",

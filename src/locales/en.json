@@ -67,7 +67,13 @@
     "secureLogin": "Your credentials are securely encrypted",
     "copyright": "© 2025 Istana Store. All rights reserved.",
     "copiedToClipboard": "Copied to clipboard!",
-    "failedToCopy": "Failed to copy text"
+    "failedToCopy": "Failed to copy text",
+    "features": {
+      "premiumCollection": "Premium Product Collection",
+      "secureCheckout": "Secure & Fast Checkout",
+      "customerSupport": "24/7 Customer Support",
+      "memberBenefits": "Exclusive Member Benefits"
+    }
   },
   "nav": {
     "products": "Products",
