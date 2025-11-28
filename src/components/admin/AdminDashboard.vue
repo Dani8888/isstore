@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-8">
-     <!-- Header -->
+      <!-- Header -->
     <div class="bg-white rounded-lg shadow p-6">
       <div class="flex flex-col">
         <div class="mb-4">
@@ -15,7 +15,7 @@
           </span>
           <button 
             @click="handleLogout" 
-            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-200 text-sm font-medium"
+            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-200 text-sm font-medium"
           >
             {{ $t('common.logout') }}
           </button>
@@ -549,9 +549,22 @@ export default {
       editingUser.value = null
     }
 
-    const logout = () => {
-      store.dispatch('logout')
-      router.push('/')
+    const handleLogout = async () => {
+      console.log('🔄 Logout process started...')
+      try {
+        await store.dispatch('logout')
+        console.log('✅ Logout successful, redirecting to login...')
+        router.push('/')
+      } catch (error) {
+        console.error('❌ Logout error:', error)
+        // Fallback manual logout
+        store.commit('CLEAR_AUTH')
+        store.commit('CLEAR_CART')
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.removeItem('cart')
+        router.push('/')
+      }
     }
 
     const user = computed(() => store.state.user)
@@ -587,7 +600,7 @@ export default {
       saveUser,
       closeUserForm,
       loadUsers,
-      logout
+      handleLogout
     }
   }
 }
