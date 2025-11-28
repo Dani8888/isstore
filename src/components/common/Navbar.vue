@@ -20,7 +20,7 @@
                 @error="handleImageError"
               />
             </div>
-            <div>
+            <div class="hidden sm:block">
               <h1 
                 class="text-xl font-bold bg-gradient-to-r from-current to-current bg-clip-text text-transparent"
                 :style="{
@@ -39,7 +39,7 @@
             </div>
           </router-link>
           
-          <!-- Navigation Links -->
+          <!-- Navigation Links - Desktop Only -->
           <div v-if="isAdmin" class="hidden md:flex space-x-4 ml-6">
             <router-link 
               to="/admin" 
@@ -65,31 +65,44 @@
             >
               {{ $t('nav.products') }}
             </router-link>
-            <router-link 
-              to="/cart" 
-              class="nav-link relative"
-              :class="{ 'active': $route.path === '/cart' }"
-              :style="{
-                backgroundColor: $route.path === '/cart' ? 'var(--color-primary)' : 'transparent',
-                color: $route.path === '/cart' ? 'white' : 'var(--color-text)'
-              }"
-            >
-              {{ $t('nav.cart') }}
-              <span v-if="cartItemCount > 0" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                {{ cartItemCount }}
-              </span>
-            </router-link>
           </div>
         </div>
         
-        <div class="flex items-center space-x-4">
+        <!-- Desktop Right Section -->
+        <div class="hidden md:flex items-center space-x-4">
+          <!-- Cart Icon - Desktop Only -->
+          <router-link 
+            v-if="!isAdmin"
+            to="/cart" 
+            class="cart-icon relative p-2 rounded-lg transition duration-200 hover:opacity-80"
+            :class="{ 'active': $route.path === '/cart' }"
+            :style="{
+              backgroundColor: $route.path === '/cart' ? 'var(--color-primary)' : 'var(--color-surface)',
+              color: $route.path === '/cart' ? 'white' : 'var(--color-text)',
+              border: '1px solid var(--color-border)'
+            }"
+            :title="$t('nav.cart')"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span 
+              v-if="cartItemCount > 0" 
+              class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-bold"
+            >
+              {{ cartItemCount }}
+            </span>
+          </router-link>
+
           <LanguageSwitcher />
+          
           <span 
             class="hidden sm:inline font-medium text-sm"
             :style="{ color: 'var(--color-text)' }"
           >
             {{ $t('common.welcome') }}, <span class="font-semibold" :style="{ color: 'var(--color-primary)' }">{{ user.username }}</span>
           </span>
+          
           <button 
             @click="logout" 
             class="logout-btn px-4 py-2 rounded-lg transition duration-200 text-sm font-medium"
@@ -100,6 +113,66 @@
             }"
           >
             {{ $t('common.logout') }}
+          </button>
+        </div>
+
+        <!-- Mobile Right Section (Logo dan Language Only) -->
+        <div class="flex md:hidden items-center space-x-2">
+          <LanguageSwitcher />
+        </div>
+      </div>
+
+      <!-- Mobile Bottom Navigation -->
+      <div v-if="!isAdmin" class="md:hidden border-t" :style="{ borderColor: 'var(--color-border)' }">
+        <div class="flex justify-between items-center py-2">
+          <!-- Products Link -->
+          <router-link 
+            to="/user" 
+            class="mobile-nav-link flex flex-col items-center flex-1"
+            :class="{ 'active': $route.path === '/user' }"
+            :style="{
+              color: $route.path === '/user' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
+            }"
+          >
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <span class="text-xs font-medium">{{ $t('nav.products') }}</span>
+          </router-link>
+
+          <!-- Cart Link -->
+          <router-link 
+            to="/cart" 
+            class="mobile-nav-link flex flex-col items-center flex-1 relative"
+            :class="{ 'active': $route.path === '/cart' }"
+            :style="{
+              color: $route.path === '/cart' ? 'var(--color-primary)' : 'var(--color-text-secondary)'
+            }"
+          >
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span class="text-xs font-medium">{{ $t('nav.cart') }}</span>
+            <span 
+              v-if="cartItemCount > 0" 
+              class="absolute top-0 right-4 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center font-bold"
+            >
+              {{ cartItemCount }}
+            </span>
+          </router-link>
+
+          <!-- Logout Button -->
+          <button 
+            @click="logout" 
+            class="mobile-nav-link flex flex-col items-center flex-1"
+            :style="{
+              color: 'var(--color-error)'
+            }"
+          >
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span class="text-xs font-medium">{{ $t('common.logout') }}</span>
           </button>
         </div>
       </div>
@@ -174,8 +247,70 @@ export default {
   color: white !important;
 }
 
+.cart-icon {
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  transform: scale(1.05);
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.cart-icon.active {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.mobile-nav-link {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-nav-link.active {
+  background-color: var(--color-background);
+}
+
+.mobile-nav-link:hover {
+  background-color: var(--color-background);
+}
+
 .logout-btn:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+/* Animation for cart badge */
+@keyframes bounce {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  80% {
+    transform: translateY(-2px);
+  }
+}
+
+.bg-red-500 {
+  animation: bounce 0.5s ease;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-nav-link {
+    padding: 0.75rem 0.5rem;
+  }
 }
 </style>
