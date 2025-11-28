@@ -69,7 +69,8 @@
             </span>
           </div>
           
-          <div class="flex space-x-4">
+          <!-- Desktop Button Layout -->
+          <div class="hidden sm:flex space-x-4">
             <button 
               @click="addToCart"
               class="flex-1 py-3 px-6 rounded-lg text-lg font-semibold transition duration-200 flex items-center justify-center text-white hover:opacity-90"
@@ -85,6 +86,39 @@
             <router-link 
               to="/user"
               class="py-3 px-6 rounded-lg text-lg font-semibold transition duration-200 flex items-center justify-center hover:opacity-90"
+              :style="{
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)',
+                border: '2px solid var(--color-primary)'
+              }"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              {{ $t('common.back') }}
+            </router-link>
+          </div>
+
+          <!-- Mobile Button Layout (di bawah 450px) -->
+          <div class="sm:hidden flex flex-col space-y-3">
+            <!-- Tombol Add to Cart di ATAS untuk mobile -->
+            <button 
+              @click="addToCart"
+              class="w-full py-4 px-6 rounded-lg text-lg font-semibold transition duration-200 flex items-center justify-center text-white hover:opacity-90"
+              :style="{
+                backgroundColor: 'var(--color-primary)'
+              }"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              {{ $t('products.addToCart') }}
+            </button>
+            
+            <!-- Tombol Back di BAWAH untuk mobile -->
+            <router-link 
+              to="/user"
+              class="w-full py-4 px-6 rounded-lg text-lg font-semibold transition duration-200 flex items-center justify-center hover:opacity-90"
               :style="{
                 backgroundColor: 'var(--color-surface)',
                 color: 'var(--color-text)',
@@ -231,7 +265,6 @@ export default {
         lastAddedProduct.value = product.value
         showAddToCartPopup.value = true
         
-        // Use global notification dengan akses $t yang benar
         if (window.showNotification) {
           const message = `"${product.value.title}" ${proxy.$t('cart.itemAdded')}`
           window.showNotification(message, 'success')
@@ -266,5 +299,34 @@ export default {
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   border: 1px solid var(--color-border);
+}
+
+/* Responsive adjustments untuk mobile kecil */
+@media (max-width: 450px) {
+  .p-8 {
+    padding: 1rem;
+  }
+  
+  h1.text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-4xl {
+    font-size: 2rem;
+  }
+  
+  .text-lg {
+    font-size: 1rem;
+  }
+  
+  .py-4 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 </style>
