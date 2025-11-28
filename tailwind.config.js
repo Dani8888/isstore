@@ -6,6 +6,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        'xs': '400px',
+      },
       colors: {
         primary: 'var(--color-primary, #3B82F6)',
         secondary: 'var(--color-secondary, #1E40AF)',

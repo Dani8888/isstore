@@ -133,11 +133,11 @@
     </div>
 
     <!-- Main Content -->
-    <div class="relative z-10 w-full max-w-6xl mx-4 mt-16"> <!-- Tambah margin top -->
+    <div class="relative z-10 w-full max-w-6xl mx-4 xs:mt-12 xs:mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         <!-- Left Side - Branding -->
-        <div class="text-center lg:text-left space-y-8">
+        <div class="text-center lg:text-left space-y-8 mt-20">
           <div class="space-y-6">
             <div class="flex items-center justify-center lg:justify-start space-x-4">
               <!-- Logo Istana Group -->
@@ -218,7 +218,7 @@
 
         <!-- Right Side - Login Form -->
         <div 
-          class="rounded-3xl shadow-2xl border p-8 lg:p-10 backdrop-blur-xl"
+          class="rounded-3xl shadow-2xl border p-8 lg:p-10 backdrop-blur-xl mt-8 xs:mb-12"
           :style="{
             backgroundColor: 'var(--color-surface)',
             borderColor: 'var(--color-primary)',
@@ -489,7 +489,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10 xs:bottom-16">
       <p 
         class="text-sm opacity-70 text-center backdrop-blur-lg rounded-2xl px-4 py-2 border"
         :style="{
@@ -637,6 +637,17 @@ export default {
 </script>
 
 <style scoped>
+/* Custom breakpoint untuk layar sangat kecil (di bawah 400px) */
+@media (max-width: 400px) {
+  .xs\:mt-12 {
+    margin-top: 3rem !important; /* 48px */
+  }
+  
+  .xs\:mb-12 {
+    margin-bottom: 3rem !important; /* 48px */
+  }
+}
+
 /* Custom animations */
 @keyframes float {
   0%, 100% { 
