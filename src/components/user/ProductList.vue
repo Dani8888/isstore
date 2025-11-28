@@ -56,7 +56,7 @@
       
       <!-- Results Info -->
       <div class="text-sm" style="color: var(--color-text-secondary)">
-        {{ $t('common.showing') }} {{ safeDisplayedProducts.length }} {{ $t('common.of') }} {{ safeFilteredProducts.length }} {{ $t('products.products') }}
+        {{ $t('common.showing') }} {{ safeDisplayedProducts.length }} {{ $t('common.of') }} {{ safeFilteredProducts.length }} {{ $t('products.title') }}
         <span v-if="selectedCategory"> {{ $t('common.in') }} {{ selectedCategory }}</span>
         <span v-if="searchQuery"> {{ $t('common.matching') }} "{{ searchQuery }}"</span>
       </div>
