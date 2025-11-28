@@ -8,7 +8,7 @@
         <TemplateSwitcher />
       </div>
 	  
-      <main :class="['container mx-auto px-4', isAuthenticated ? 'py-8' : 'py-0']">
+      <main :class="['container mx-auto px-4', isAuthenticated ? 'py-8 mb-12 md:mb-0' : 'py-0']">
         <router-view />
       </main>
       <LoadingSpinner v-if="isLoading" />
