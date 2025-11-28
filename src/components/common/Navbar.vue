@@ -3,8 +3,7 @@
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <div class="flex items-center space-x-4">
-          <!-- Logo Istana Store -->
-          <router-link to="/user" class="flex items-center space-x-3 no-underline">
+          <router-link :to="isAdmin ? '/admin' : '/user'" class="flex items-center space-x-3 no-underline">
             <div 
               class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg border overflow-hidden"
               :style="{
@@ -20,7 +19,7 @@
                 @error="handleImageError"
               />
             </div>
-            <div class="hidden sm:block">
+            <div class="block">
               <h1 
                 class="text-xl font-bold bg-gradient-to-r from-current to-current bg-clip-text text-transparent"
                 :style="{
@@ -39,11 +38,10 @@
             </div>
           </router-link>
           
-          <!-- Navigation Links - Desktop Only -->
-          <div v-if="isAdmin" class="hidden md:flex space-x-4 ml-6">
+          <div v-if="isAdmin" class="hidden md:flex space-x-2 ml-8">
             <router-link 
               to="/admin" 
-              class="nav-link"
+              class="nav-link px-4 py-2"
               :class="{ 'active': $route.path === '/admin' }"
               :style="{
                 backgroundColor: $route.path === '/admin' ? 'var(--color-primary)' : 'transparent',
@@ -53,10 +51,10 @@
               {{ $t('nav.dashboard') }}
             </router-link>
           </div>
-          <div v-else class="hidden md:flex space-x-4 ml-6">
+          <div v-else class="hidden md:flex space-x-2 ml-8">
             <router-link 
               to="/user" 
-              class="nav-link"
+              class="nav-link px-4 py-2"
               :class="{ 'active': $route.path === '/user' }"
               :style="{
                 backgroundColor: $route.path === '/user' ? 'var(--color-primary)' : 'transparent',
@@ -68,9 +66,7 @@
           </div>
         </div>
         
-        <!-- Desktop Right Section -->
         <div class="hidden md:flex items-center space-x-4">
-          <!-- Cart Icon - Desktop Only -->
           <router-link 
             v-if="!isAdmin"
             to="/cart" 
@@ -97,14 +93,14 @@
           <LanguageSwitcher />
           
           <span 
-            class="hidden sm:inline font-medium text-sm"
+            class="font-medium text-sm"
             :style="{ color: 'var(--color-text)' }"
           >
-            {{ $t('common.welcome') }}, <span class="font-semibold" :style="{ color: 'var(--color-primary)' }">{{ user.username }}</span>
+            {{ $t('common.welcome') }}, <span class="font-semibold" :style="{ color: 'var(--color-primary)' }">{{ user?.username || 'User' }}</span>
           </span>
           
           <button 
-            @click="logout" 
+            @click="handleLogout" 
             class="logout-btn px-4 py-2 rounded-lg transition duration-200 text-sm font-medium"
             :style="{
               backgroundColor: 'var(--color-error)',
@@ -116,16 +112,13 @@
           </button>
         </div>
 
-        <!-- Mobile Right Section (Logo dan Language Only) -->
         <div class="flex md:hidden items-center space-x-2">
           <LanguageSwitcher />
         </div>
       </div>
 
-      <!-- Mobile Bottom Navigation -->
       <div v-if="!isAdmin" class="md:hidden border-t" :style="{ borderColor: 'var(--color-border)' }">
         <div class="flex justify-between items-center py-2">
-          <!-- Products Link -->
           <router-link 
             to="/user" 
             class="mobile-nav-link flex flex-col items-center flex-1"
@@ -140,7 +133,6 @@
             <span class="text-xs font-medium">{{ $t('nav.products') }}</span>
           </router-link>
 
-          <!-- Cart Link -->
           <router-link 
             to="/cart" 
             class="mobile-nav-link flex flex-col items-center flex-1 relative"
@@ -161,9 +153,8 @@
             </span>
           </router-link>
 
-          <!-- Logout Button -->
           <button 
-            @click="logout" 
+            @click="handleLogout" 
             class="mobile-nav-link flex flex-col items-center flex-1"
             :style="{
               color: 'var(--color-error)'
@@ -196,9 +187,16 @@ export default {
     const router = useRouter()
     const route = useRoute()
 
-    const logout = () => {
-      store.dispatch('logout')
-      router.push('/')
+    const handleLogout = async () => {
+      try {
+        await store.dispatch('logout')
+        router.push('/')
+      } catch (error) {
+        console.error('Logout error:', error)
+        store.commit('CLEAR_AUTH')
+        store.commit('CLEAR_CART')
+        router.push('/')
+      }
     }
 
     const handleImageError = (event) => {
@@ -214,7 +212,7 @@ export default {
       user,
       isAdmin,
       cartItemCount,
-      logout,
+      handleLogout,
       handleImageError,
       $route: route
     }
@@ -234,17 +232,21 @@ export default {
 }
 
 .nav-link {
-  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s ease;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
 }
 
 .nav-link:hover {
   background-color: var(--color-primary);
   color: white !important;
+  transform: translateY(-1px);
 }
 
 .cart-icon {
@@ -285,7 +287,6 @@ export default {
   transform: translateY(-1px);
 }
 
-/* Animation for cart badge */
 @keyframes bounce {
   0%, 20%, 60%, 100% {
     transform: translateY(0);
@@ -302,7 +303,6 @@ export default {
   animation: bounce 0.5s ease;
 }
 
-/* Mobile responsive adjustments */
 @media (max-width: 767px) {
   .container {
     padding-left: 1rem;
@@ -311,6 +311,12 @@ export default {
   
   .mobile-nav-link {
     padding: 0.75rem 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-link {
+    min-width: 100px;
   }
 }
 </style>

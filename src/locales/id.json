@@ -136,24 +136,6 @@
     "placingOrder": "Memproses Pesanan...",
     "orderSummary": "Ringkasan Pesanan"
   },
-  "admin": {
-    "adminDashboard": "Dashboard Admin",
-    "manageProductsUsers": "Kelola produk dan pengguna",
-    "productsManagement": "Manajemen Produk",
-    "usersManagement": "Manajemen Pengguna",
-    "addNewProduct": "Tambah Produk Baru",
-    "addNewUser": "Tambah Pengguna Baru",
-    "editProduct": "Edit Produk",
-    "editUser": "Edit Pengguna",
-    "user": "Pengguna",
-    "email": "Email",
-    "phone": "Telepon",
-    "actions": "Aksi",
-    "noUsers": "Tidak Ada Pengguna Ditemukan",
-    "noUsersDisplay": "Tidak ada pengguna untuk ditampilkan",
-    "refreshUsers": "Muat Ulang Pengguna",
-    "loadUsers": "Muat Pengguna"
-  },
   "order": {
     "orderConfirmed": "Pesanan Dikonfirmasi!",
     "thankYouPurchase": "Terima kasih atas pembelian Anda",

@@ -136,24 +136,6 @@
     "placingOrder": "Placing Order...",
     "orderSummary": "Order Summary"
   },
-  "admin": {
-    "adminDashboard": "Admin Dashboard",
-    "manageProductsUsers": "Manage products and users",
-    "productsManagement": "Products Management",
-    "usersManagement": "Users Management",
-    "addNewProduct": "Add New Product",
-    "addNewUser": "Add New User",
-    "editProduct": "Edit Product",
-    "editUser": "Edit User",
-    "user": "User",
-    "email": "Email",
-    "phone": "Phone",
-    "actions": "Actions",
-    "noUsers": "No Users Found",
-    "noUsersDisplay": "There are no users to display",
-    "refreshUsers": "Refresh Users",
-    "loadUsers": "Load Users"
-  },
   "order": {
     "orderConfirmed": "Order Confirmed!",
     "thankYouPurchase": "Thank you for your purchase",

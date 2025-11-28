@@ -1,9 +1,26 @@
 <template>
   <div class="space-y-8">
-    <!-- Header -->
+     <!-- Header -->
     <div class="bg-white rounded-lg shadow p-6">
-      <h1 class="text-3xl font-bold text-gray-800">{{ $t('admin.adminDashboard') }}</h1>
-      <p class="text-gray-600 mt-2">{{ $t('admin.manageProductsUsers') }}</p>
+      <div class="flex flex-col">
+        <div class="mb-4">
+          <h1 class="text-3xl font-bold text-gray-800">{{ $t('admin.adminDashboard') }}</h1>
+          <p class="text-gray-600 mt-2">{{ $t('admin.manageProductsUsers') }}</p>
+        </div>
+        
+        <!-- User Info & Logout - Mobile (di bawah 768px) - HANYA MUNCUL DI MOBILE -->
+        <div class="flex md:hidden items-center justify-between pt-4 border-t border-gray-200">
+          <span class="font-medium text-sm text-gray-700">
+            {{ $t('common.welcome') }}, <span class="font-semibold text-blue-600">{{ user?.username || 'Admin' }}</span>
+          </span>
+          <button 
+            @click="handleLogout" 
+            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-200 text-sm font-medium"
+          >
+            {{ $t('common.logout') }}
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -29,11 +46,23 @@
       <div class="p-6">
         <!-- Products Tab -->
         <div v-if="activeTab === 'products'">
-          <div class="flex justify-between items-center mb-6">
+          <!-- Header Products - Desktop -->
+          <div class="hidden sm:flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">{{ $t('admin.productsManagement') }}</h2>
             <button 
               @click="showProductForm = true"
               class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-200"
+            >
+              {{ $t('admin.addNewProduct') }}
+            </button>
+          </div>
+
+          <!-- Header Products - Mobile (di bawah 500px) -->
+          <div class="sm:hidden mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ $t('admin.productsManagement') }}</h2>
+            <button 
+              @click="showProductForm = true"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition duration-200 font-medium"
             >
               {{ $t('admin.addNewProduct') }}
             </button>
@@ -58,7 +87,8 @@
 
         <!-- Users Tab -->
         <div v-else-if="activeTab === 'users'">
-          <div class="flex justify-between items-center mb-6">
+          <!-- Header Users - Desktop -->
+          <div class="hidden sm:flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">{{ $t('admin.usersManagement') }}</h2>
             <div class="flex items-center space-x-4">
               <span class="text-sm text-gray-600">{{ $t('common.total') }}: {{ users.length }} {{ $t('admin.user') }}</span>
@@ -74,6 +104,25 @@
               >
                 {{ $t('admin.addNewUser') }}
               </button>
+            </div>
+          </div>
+
+          <!-- Header Users - Mobile (di bawah 500px) -->
+          <div class="sm:hidden mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ $t('admin.usersManagement') }}</h2>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-600">{{ $t('common.total') }}: {{ users.length }} {{ $t('admin.user') }}</span>
+              </div>
+              <div class="flex space-x-3">
+                <!-- Tombol Refresh Users dihilangkan di mobile -->
+                <button 
+                  @click="showUserForm = true"
+                  class="flex-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition duration-200 font-medium"
+                >
+                  {{ $t('admin.addNewUser') }}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -198,6 +247,8 @@
 
 <script>
 import { ref, computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { productsAPI, usersAPI } from '../../services/api'
 import ProductCard from '../common/ProductCard.vue'
 import Modal from '../common/Modal.vue'
@@ -213,6 +264,8 @@ export default {
     UserForm
   },
   setup() {
+    const store = useStore()
+    const router = useRouter()
     const activeTab = ref('products')
     const products = ref([])
     const users = ref([])
@@ -496,6 +549,13 @@ export default {
       editingUser.value = null
     }
 
+    const logout = () => {
+      store.dispatch('logout')
+      router.push('/')
+    }
+
+    const user = computed(() => store.state.user)
+
     onMounted(() => {
       loadProducts()
       loadUsers()
@@ -511,6 +571,7 @@ export default {
       editingProduct,
       editingUser,
       usersLoading,
+      user,
       getUserInitial,
       getFullName,
       getUsername,
@@ -525,7 +586,8 @@ export default {
       deleteUser,
       saveUser,
       closeUserForm,
-      loadUsers
+      loadUsers,
+      logout
     }
   }
 }
